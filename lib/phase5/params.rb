@@ -35,7 +35,9 @@ module Phase5
     # { "user" => { "address" => { "street" => "main", "zip" => "89436" } } }
     def parse_www_encoded_form(www_encoded_form)
       parse = www_encoded_form.split(/\=|\&|\|/)
+      
       parse.map! {|code| parse_key(code).map!{|sym| sym.to_s} }
+
       modified_parse = Hash.new
       parse.each_with_index do |arr,idx|
         modified_parse[parse[idx]] = parse[idx+1] if idx.even?
