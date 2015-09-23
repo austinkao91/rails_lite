@@ -35,35 +35,22 @@ module Phase5
     # { "user" => { "address" => { "street" => "main", "zip" => "89436" } } }
     def parse_www_encoded_form(www_encoded_form)
       parse = www_encoded_form.split(/\=|\&|\|/)
-      
+
       parse.map! {|code| parse_key(code).map!{|sym| sym.to_s} }
 
+      modify_parse(parse)
+
+      parse_to_hash_improved(modified_parse)
+
+    end
+
+    def modify_parse(parse)
       modified_parse = Hash.new
       parse.each_with_index do |arr,idx|
         modified_parse[parse[idx]] = parse[idx+1] if idx.even?
       end
-      parse_to_hash_improved(modified_parse)
-
+      modified_parse
     end
-    #
-    # def parse_to_hash(parse)
-    #   h = Hash.new
-    #   parse.each do |arr|
-    #     h[arr[0]] ||= {arr[1] => {}}
-    #     current = h[arr[0]][arr[1]]
-    #     idx = 2
-    #     arr[2..-2].each do |key|
-    #       if arr[idx] == arr[-2]
-    #         current[arr[idx]] ||= arr[idx+1]
-    #       else
-    #         current[arr[idx]] ||= { arr[idx+1] =>{} }
-    #         current = current[arr[idx]][arr[idx+1]]
-    #       end
-    #       idx += 1
-    #     end
-    #   end
-    #   h
-    # end
 
     def parse_to_hash_improved(hash)
       h = Hash.new
