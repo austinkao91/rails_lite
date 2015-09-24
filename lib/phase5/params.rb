@@ -38,7 +38,7 @@ module Phase5
 
       parse.map! {|code| parse_key(code).map!{|sym| sym.to_s} }
 
-      modify_parse(parse)
+      modified_parse = modify_parse(parse)
 
       parse_to_hash_improved(modified_parse)
 

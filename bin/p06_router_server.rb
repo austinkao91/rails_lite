@@ -1,7 +1,8 @@
 require 'webrick'
 require_relative '../lib/phase6/controller_base'
 require_relative '../lib/phase6/router'
-
+require 'byebug'
+require_relative '../lib/bonus/controller_base'
 
 # http://www.ruby-doc.org/stdlib-2.0/libdoc/webrick/rdoc/WEBrick.html
 # http://www.ruby-doc.org/stdlib-2.0/libdoc/webrick/rdoc/WEBrick/HTTPRequest.html
@@ -31,7 +32,8 @@ end
 
 class Cats2Controller < Phase6::ControllerBase
   def index
-    render_content($cats.to_s, "text/text")
+    flash[:errors] = "YAY"
+    render_content(flash[:errors], "text/text")
   end
 end
 

@@ -42,14 +42,14 @@ module Phase6
     # evaluate the proc in the context of the instance
     # for syntactic sugar :)
     def draw(&proc)
-      proc.call
+      instance_eval(&proc)
     end
 
     # make each of these methods that
     # when called add route
     [:get, :post, :put, :delete].each do |http_method|
-      define_method("#{http_method}") do |pattern, controller_class, action_name|
-        add_route(pattern, "#{http_method}", controller_class, action_name)
+      define_method(http_method) do |pattern, controller_class, action_name|
+        add_route(pattern, http_method, controller_class, action_name)
       end
     end
 
@@ -62,7 +62,7 @@ module Phase6
     def run(req, res)
       route = match(req)
       if route
-        res.body = route.run(req,res)
+        route.run(req,res)
       else
         res.status = 404
       end

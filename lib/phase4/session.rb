@@ -18,6 +18,8 @@ module Phase4
       @data[key] = val
     end
 
+    
+
     # serialize the hash into json and save in a cookie
     # add to the responses cookies
     def store_session(res)
